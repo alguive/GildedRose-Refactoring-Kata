@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace GildedRose;
+namespace GildedRose\Items;
 
 use GildedRose\Item;
 
-class Sulfuras extends Item
+class Elixir extends Item
 {
-    protected const NAME = 'Sulfuras, Hand of Ragnaros';
+    protected const NAME = 'Elixir of the Mongoose';
 
     public function __construct(
         public int $sellIn,

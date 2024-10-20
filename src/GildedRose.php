@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
+use GildedRose\Items\AgedBrie;
+use GildedRose\Items\BackstagePasses;
+use GildedRose\Items\Sulfuras;
+
 final class GildedRose
 {
     /**

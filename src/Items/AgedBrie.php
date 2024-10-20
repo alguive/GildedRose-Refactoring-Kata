@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace GildedRose;
+namespace GildedRose\Items;
 
 use GildedRose\Item;
 
-class DexterityVest extends Item
+class AgedBrie extends Item
 {
-    protected const NAME = '+5 Dexterity Vest';
+    protected const NAME = 'Aged Brie';
 
     public function __construct(
         public int $sellIn,

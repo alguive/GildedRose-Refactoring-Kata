@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use GildedRose\AgedBrie;
-use GildedRose\BackstagePasses;
-use GildedRose\DexterityVest;
-use GildedRose\Elixir;
+use GildedRose\Items\AgedBrie;
+use GildedRose\Items\BackstagePasses;
+use GildedRose\Items\DexterityVest;
+use GildedRose\Items\Elixir;
 use GildedRose\GildedRose;
 use GildedRose\Item;
-use GildedRose\Sulfuras;
+use GildedRose\Items\Sulfuras;
 
 echo 'OMGHAI!' . PHP_EOL;
 

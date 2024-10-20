@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace GildedRose;
+namespace GildedRose\Items;
 
 use GildedRose\Item;
 
-class BackstagePasses extends Item
+class DexterityVest extends Item
 {
-    protected const NAME = 'Backstage passes to a TAFKAL80ETC concert';
+    protected const NAME = '+5 Dexterity Vest';
 
     public function __construct(
         public int $sellIn,
