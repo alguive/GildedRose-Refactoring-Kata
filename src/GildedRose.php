@@ -30,24 +30,22 @@ final class GildedRose
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
-            if ($item instanceof AgedBrie) {
-                $this->manageAgedBrie($item);
-            }
-
-            if ($item instanceof BackstagePasses) {
-                $this->manageBackstagePasses($item);
-            }
-
-            if ($item instanceof Sulfuras) {
-                // Do nothing
-            }
-
-            if ($item instanceof DexterityVest || $item instanceof Elixir) {
-                $this->manageRegularItems($item);
-            }
-
-            if ($item instanceof Conjured) {
-                $this->manageConjured($item);
+            switch (true) {
+                case $item instanceof AgedBrie:
+                    $this->manageAgedBrie($item);
+                    break;
+                case $item instanceof BackstagePasses:
+                    $this->manageBackstagePasses($item);
+                    break;
+                case $item instanceof Conjured:
+                    $this->manageConjured($item);
+                    break;
+                case $item instanceof Sulfuras:
+                    // Do nothing
+                    break;
+                default:
+                    $this->manageRegularItems($item);
+                    break;
             }
         }
     }
