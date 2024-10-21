@@ -6,6 +6,7 @@ namespace GildedRose;
 
 use GildedRose\Items\AgedBrie;
 use GildedRose\Items\BackstagePasses;
+use GildedRose\Items\Conjured;
 use GildedRose\Items\DexterityVest;
 use GildedRose\Items\Elixir;
 use GildedRose\Items\Sulfuras;
@@ -21,6 +22,11 @@ final class GildedRose
         // Empty constructor
     }
 
+    /**
+     * Process quality items method
+     *
+     * @return void
+     */
     public function updateQuality(): void
     {
         foreach ($this->items as $item) {
@@ -38,6 +44,10 @@ final class GildedRose
 
             if ($item instanceof DexterityVest || $item instanceof Elixir) {
                 $this->manageRegularItems($item);
+            }
+
+            if ($item instanceof Conjured) {
+                $this->manageConjured($item);
             }
         }
     }
@@ -107,6 +117,28 @@ final class GildedRose
         if ($item->sellIn < 0) {
             if ($item->quality > 0) {
                 $this->decreaseQuality($item, 1);
+            }
+        }
+    }
+
+    /**
+     * Manage Conjured
+     *      "Conjured" items degrade in Quality twice as fast as normal items
+     *
+     * @param Item $item
+     * @return void
+     */
+    protected function manageConjured(Item &$item): void
+    {
+        if ($item->quality > 0) {
+            $this->decreaseQuality($item, 2);
+        }
+
+        $this->decreaseSellIn($item, 1);
+
+        if ($item->sellIn < 0) {
+            if ($item->quality > 0) {
+                $this->decreaseQuality($item, 2);
             }
         }
     }

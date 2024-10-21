@@ -9,7 +9,7 @@ use GildedRose\Items\BackstagePasses;
 use GildedRose\Items\DexterityVest;
 use GildedRose\Items\Elixir;
 use GildedRose\GildedRose;
-use GildedRose\Item;
+use GildedRose\Items\Conjured;
 use GildedRose\Items\Sulfuras;
 
 echo 'OMGHAI!' . PHP_EOL;
@@ -23,7 +23,7 @@ $items = [
     new BackstagePasses(15, 20),
     new BackstagePasses(10, 49),
     new BackstagePasses(5, 49),
-    new Item('Conjured Mana Cake', 3, 6),
+    new Conjured(3, 6),
 ];
 
 $app = new GildedRose($items);
