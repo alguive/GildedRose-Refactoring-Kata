@@ -52,8 +52,8 @@ final class GildedRose
      */
     protected function manageAgedBrie(Item &$item): void
     {
-        $this->increaseQuality($item);
-        $this->decreaseSellIn($item);
+        $this->increaseQuality($item, 1);
+        $this->decreaseSellIn($item, 1);
 
         if ($item->sellIn < 0) {
             $this->increaseQuality($item, 1);
@@ -71,16 +71,16 @@ final class GildedRose
      */
     protected function manageBackstagePasses(Item &$item): void
     {
-        $this->increaseQuality($item);
+        $this->increaseQuality($item, 1);
 
         if ($item->sellIn < 11) {
-            $this->increaseQuality($item);
+            $this->increaseQuality($item, 1);
         }
         if ($item->sellIn < 6) {
-            $this->increaseQuality($item);
+            $this->increaseQuality($item, 1);
         }
 
-        $this->decreaseSellIn($item);
+        $this->decreaseSellIn($item, 1);
 
         if ($item->sellIn < 0) {
             $item->quality = $item->quality - $item->quality;
@@ -99,52 +99,53 @@ final class GildedRose
     protected function manageRegularItems(Item &$item): void
     {
         if ($item->quality > 0) {
-            $this->decreaseQuality($item);
+            $this->decreaseQuality($item, 1);
         }
 
-        $this->decreaseSellIn($item);
+        $this->decreaseSellIn($item, 1);
 
         if ($item->sellIn < 0) {
             if ($item->quality > 0) {
-                $this->decreaseQuality($item);
+                $this->decreaseQuality($item, 1);
             }
         }
     }
 
     /**
-     * Check if Quality is minor than 50, if it is, then increases Quality on 1
+     * Check if Quality is minor than 50, if it is, then increases Quality on quantity required
      *
      * @param Item $item
      * @return void
      */
-    protected function increaseQuality(Item &$item): void
+    protected function increaseQuality(Item &$item, int $quantityToIncrease): void
     {
         if ($item->quality < 50) {
-            $item->quality = $item->quality + 1;
+            $item->quality = $item->quality + $quantityToIncrease;
         }
     }
 
     /**
-     * Decrease quality on 1
-     *
-     * @param Item $item
-     * @return void
-     */
-    protected function decreaseQuality(Item &$item): void
-    {
-        $item->quality = $item->quality - 1;
-    }
-
-    /**
-     * Decreases SellIn  on 1
+     * Decrease quality on quantity required
      *
      * @param Item $item
      * @param integer $quantityToDecrease
      * @return void
      */
-    protected function decreaseSellIn(Item &$item): void
+    protected function decreaseQuality(Item &$item, int $quantityToDecrease): void
     {
-        $item->sellIn = $item->sellIn - 1;
+        $item->quality = $item->quality - $quantityToDecrease;
+    }
+
+    /**
+     * Decreases SellIn on quantity required
+     *
+     * @param Item $item
+     * @param integer $quantityToDecrease
+     * @return void
+     */
+    protected function decreaseSellIn(Item &$item, int $quantityToDecrease): void
+    {
+        $item->sellIn = $item->sellIn - $quantityToDecrease;
     }
 
 }
