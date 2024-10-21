@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GildedRose;
 
 use GildedRose\Items\AgedBrie;
+use GildedRose\Items\BackstagePasses;
 
 final class GildedRose
 {
@@ -14,6 +15,7 @@ final class GildedRose
     public function __construct(
         private array $items
     ) {
+        // Empty constructor
     }
 
     public function updateQuality(): void
@@ -21,6 +23,10 @@ final class GildedRose
         foreach ($this->items as $item) {
             if ($item instanceof AgedBrie) {
                 $this->manageAgedBrie($item);
+            }
+
+            if ($item instanceof BackstagePasses) {
+                $this->manageBackstagePasses($item);
             }
         }
     }
@@ -40,6 +46,33 @@ final class GildedRose
 
         if ($item->sellIn < 0) {
             $this->increaseQuality($item, 1);
+        }
+    }
+
+    /**
+     * Manage Backstage passes
+     *      Backstage passes increasses value (Quality) every day.
+     *      10 days before or less for the concert, increases value x2
+     *      5 days before or less for the concert, increases value x3
+     *
+     * @param Item $item
+     * @return void
+     */
+    protected function manageBackstagePasses(Item &$item): void
+    {
+        $this->increaseQuality($item);
+
+        if ($item->sellIn < 11) {
+            $this->increaseQuality($item);
+        }
+        if ($item->sellIn < 6) {
+            $this->increaseQuality($item);
+        }
+
+        $this->decreaseSellIn($item);
+
+        if ($item->sellIn < 0) {
+            $item->quality = $item->quality - $item->quality;
         }
     }
 
