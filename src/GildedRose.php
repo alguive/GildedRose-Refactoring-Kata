@@ -6,6 +6,7 @@ namespace GildedRose;
 
 use GildedRose\Items\AgedBrie;
 use GildedRose\Items\BackstagePasses;
+use GildedRose\Items\DexterityVest;
 use GildedRose\Items\Sulfuras;
 
 final class GildedRose
@@ -32,6 +33,10 @@ final class GildedRose
 
             if ($item instanceof Sulfuras) {
                 // Do nothing
+            }
+
+            if ($item instanceof DexterityVest) {
+                $this->manageDexterityVest($item);
             }
         }
     }
@@ -82,6 +87,29 @@ final class GildedRose
     }
 
     /**
+     * Manage DexterityVest
+     *      At the end of the day, SellIn and Quality are decreased.
+     *      Once the recommended sell date is gone (SellIn), the Quality decreases double every day.
+     *
+     * @param Item $item
+     * @return void
+     */
+    protected function manageDexterityVest(Item &$item): void
+    {
+        if ($item->quality > 0) {
+            $this->decreaseQuality($item);
+        }
+
+        $this->decreaseSellIn($item);
+
+        if ($item->sellIn < 0) {
+            if ($item->quality > 0) {
+                $this->decreaseQuality($item);
+            }
+        }
+    }
+
+    /**
      * Check if Quality is minor than 50, if it is, then increases Quality on 1
      *
      * @param Item $item
@@ -92,6 +120,17 @@ final class GildedRose
         if ($item->quality < 50) {
             $item->quality = $item->quality + 1;
         }
+    }
+
+    /**
+     * Decrease quality on 1
+     *
+     * @param Item $item
+     * @return void
+     */
+    protected function decreaseQuality(Item &$item): void
+    {
+        $item->quality = $item->quality - 1;
     }
 
     /**
