@@ -7,6 +7,7 @@ namespace GildedRose;
 use GildedRose\Items\AgedBrie;
 use GildedRose\Items\BackstagePasses;
 use GildedRose\Items\DexterityVest;
+use GildedRose\Items\Elixir;
 use GildedRose\Items\Sulfuras;
 
 final class GildedRose
@@ -35,8 +36,8 @@ final class GildedRose
                 // Do nothing
             }
 
-            if ($item instanceof DexterityVest) {
-                $this->manageDexterityVest($item);
+            if ($item instanceof DexterityVest || $item instanceof Elixir) {
+                $this->manageRegularItems($item);
             }
         }
     }
@@ -87,14 +88,15 @@ final class GildedRose
     }
 
     /**
-     * Manage DexterityVest
-     *      At the end of the day, SellIn and Quality are decreased.
-     *      Once the recommended sell date is gone (SellIn), the Quality decreases double every day.
+     * Manage Regular Items
+     *      Those Items doesnt follow special rules:
+     *          At the end of the day, SellIn and Quality are decreased.
+     *          Once the recommended sell date is gone (SellIn), the Quality decreases double every day.
      *
      * @param Item $item
      * @return void
      */
-    protected function manageDexterityVest(Item &$item): void
+    protected function manageRegularItems(Item &$item): void
     {
         if ($item->quality > 0) {
             $this->decreaseQuality($item);
