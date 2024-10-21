@@ -6,6 +6,7 @@ namespace GildedRose;
 
 use GildedRose\Items\AgedBrie;
 use GildedRose\Items\BackstagePasses;
+use GildedRose\Items\Sulfuras;
 
 final class GildedRose
 {
@@ -27,6 +28,10 @@ final class GildedRose
 
             if ($item instanceof BackstagePasses) {
                 $this->manageBackstagePasses($item);
+            }
+
+            if ($item instanceof Sulfuras) {
+                // Do nothing
             }
         }
     }
