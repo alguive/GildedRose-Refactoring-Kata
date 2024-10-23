@@ -44,6 +44,7 @@ final class GildedRose
                     // Do nothing
                     break;
                 default:
+                    // DexterityVest && Elixir
                     $this->manageRegularItems($item);
                     break;
             }
@@ -145,6 +146,7 @@ final class GildedRose
      * Check if Quality is minor than 50, if it is, then increases Quality on quantity required
      *
      * @param Item $item
+     * @param integer $quantityToIncrease
      * @return void
      */
     protected function increaseQuality(Item &$item, int $quantityToIncrease): void
