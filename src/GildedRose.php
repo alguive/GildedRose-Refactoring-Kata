@@ -7,9 +7,11 @@ namespace GildedRose;
 use GildedRose\Items\AgedBrie;
 use GildedRose\Items\BackstagePasses;
 use GildedRose\Items\Conjured;
+use GildedRose\Items\Sulfuras;
 use GildedRose\ItemUpdater\AgedBrieUpdater;
 use GildedRose\ItemUpdater\BackStagePassesUpdater;
 use GildedRose\ItemUpdater\ConjuredUpdater;
+use GildedRose\ItemUpdater\SulfurasUpdater;
 
 final class GildedRose
 {
@@ -42,6 +44,10 @@ final class GildedRose
                 case $item instanceof Conjured:
                     $conjuredItemUpdater = new ConjuredUpdater($item);
                     $conjuredItemUpdater->update();
+                    break;
+                case $item instanceof Sulfuras:
+                    $sulfurasUpdater = new SulfurasUpdater($item);
+                    $sulfurasUpdater->update();
                     break;
             }
         }
