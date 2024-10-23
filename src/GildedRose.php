@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace GildedRose;
 
 use GildedRose\Items\AgedBrie;
+use GildedRose\Items\BackstagePasses;
 use GildedRose\ItemUpdater\AgedBrieUpdater;
+use GildedRose\ItemUpdater\BackStagePassesUpdater;
 
 final class GildedRose
 {
@@ -30,6 +32,10 @@ final class GildedRose
                 case $item instanceof AgedBrie:
                     $brieUpdater = new AgedBrieUpdater($item);
                     $brieUpdater->update();
+                    break;
+                case $item instanceof BackstagePasses:
+                    $backstagePassesUpdater = new BackStagePassesUpdater($item);
+                    $backstagePassesUpdater->update();
                     break;
             }
         }
