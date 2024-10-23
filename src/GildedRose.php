@@ -11,6 +11,7 @@ use GildedRose\Items\Sulfuras;
 use GildedRose\ItemUpdater\AgedBrieUpdater;
 use GildedRose\ItemUpdater\BackStagePassesUpdater;
 use GildedRose\ItemUpdater\ConjuredUpdater;
+use GildedRose\ItemUpdater\RegularItemUpdater;
 use GildedRose\ItemUpdater\SulfurasUpdater;
 
 final class GildedRose
@@ -48,6 +49,10 @@ final class GildedRose
                 case $item instanceof Sulfuras:
                     $sulfurasUpdater = new SulfurasUpdater($item);
                     $sulfurasUpdater->update();
+                    break;
+                default: // DexterityVest && Elixir
+                    $regularItemUpdater = new RegularItemUpdater($item);
+                    $regularItemUpdater->update();
                     break;
             }
         }
