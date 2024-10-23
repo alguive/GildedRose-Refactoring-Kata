@@ -6,8 +6,10 @@ namespace GildedRose;
 
 use GildedRose\Items\AgedBrie;
 use GildedRose\Items\BackstagePasses;
+use GildedRose\Items\Conjured;
 use GildedRose\ItemUpdater\AgedBrieUpdater;
 use GildedRose\ItemUpdater\BackStagePassesUpdater;
+use GildedRose\ItemUpdater\ConjuredUpdater;
 
 final class GildedRose
 {
@@ -36,6 +38,10 @@ final class GildedRose
                 case $item instanceof BackstagePasses:
                     $backstagePassesUpdater = new BackStagePassesUpdater($item);
                     $backstagePassesUpdater->update();
+                    break;
+                case $item instanceof Conjured:
+                    $conjuredItemUpdater = new ConjuredUpdater($item);
+                    $conjuredItemUpdater->update();
                     break;
             }
         }
